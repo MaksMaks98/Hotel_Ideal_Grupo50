@@ -112,39 +112,32 @@ public class HuespedData {
     
     
     
-    public void modificarDatosHuesped (Huesped huesped){
-        
-        
-	String sql = "UPDATE huesped SET huesped.nombre=?, huesped.apellido=?, huesped.dni=?, huesped.domicilio=?, huesped.correo=?, huesped.celular=?, huesped.estado=?  WHERE idHuesped=?";
-	PreparedStatement ps = null;
-        
-        try {
-            
-	ps = con.prepareStatement(sql);
-        ps.setInt(1, huesped.getIdHuesped());
-       	ps.setString(2, huesped.getNombre());
-	ps.setString(3, huesped.getApellido());
-       	ps.setString(4, huesped.getDni());
-       	ps.setString(5, huesped.getDomicilio());
-       	ps.setString(6, huesped.getCorreo());
-       	ps.setString(7, huesped.getCelular());
-        ps.setBoolean(8, huesped.isEstado());
-	int exito = ps.executeUpdate(); 
-        
-	if (exito == 1) {
-	
+    public void modificarDatosHuesped(int id, Huesped huesped) {
+    String sql = "UPDATE huesped SET nombre=?, apellido=?, dni=?, domicilio=?, correo=?, celular=?, estado=?  WHERE idHuesped=?";
+    PreparedStatement ps = null;
+
+    try {
+        ps = con.prepareStatement(sql);
+        ps.setString(1, huesped.getNombre());
+        ps.setString(2, huesped.getApellido());
+        ps.setString(3, huesped.getDni());
+        ps.setString(4, huesped.getDomicilio());
+        ps.setString(5, huesped.getCorreo());
+        ps.setString(6, huesped.getCelular());
+        ps.setBoolean(7, huesped.isEstado());
+        ps.setInt(8, id); // Establecer id en la posición correcta
+
+        int exito = ps.executeUpdate();
+
+        if (exito == 1) {
             JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");
-	} else {
-	
+        } else {
             JOptionPane.showMessageDialog(null, "El huésped no existe");
-	}
-
-	} catch (SQLException ex) {
-	
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huésped "+ex.getMessage());
-	}
-
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huésped " + ex.getMessage());
     }
+}
     
         
         

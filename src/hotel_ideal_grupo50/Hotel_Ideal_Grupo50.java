@@ -25,17 +25,22 @@ public class Hotel_Ideal_Grupo50 {
         Habitacion habitacion=new Habitacion (13, 9, 1, true);
         
         
-        Huesped huesped= new Huesped("María", "Luisa", "345666789", "La Pampa", "MariaL_example@gmail.com", "234555677");
+       
         
 //        dataH.crearHuesped(huesped);
 //        dataT.crearTipoHabitacion(tipo1);
  //       dataHabi.cargarHabitacion(habitacion);
    //     dataH.borrarHuesped("23345567");
    
-     //   System.out.println("Buscar huésped por DNI:  "+ dataH.buscarHuespedPorDni("234666786"));
+    //  System.out.println("Buscar huésped por DNI:  "+ dataH.buscarHuespedPorDni("234666786"));
         
-     Huesped huespedModificado= dataH.buscarHuespedPorDni("345666789");
-     dataH.modificarDatosHuesped(huespedModificado);
+       Huesped huesped= new Huesped("María", "Luisa", "345666789", "La Pampa", "MariaL_example@gmail.com", "234555677");
+     Huesped huespedModi = dataH.buscarHuespedPorDni("345666789");
+     
+        System.out.println(huespedModi);
+     
+        dataH.modificarDatosHuesped(huespedModi.getIdHuesped(),huesped);
     }
+    
     
 }
