@@ -7,7 +7,11 @@ public class Reserva_huesped {
     private int idReserva;
 
     private Huesped huesped;
+    
+    private int idHuesped;
 
+    private int idHabitacion;
+    
     private Habitacion habitacion;
 
     private int cantidadPersonas;
@@ -35,6 +39,20 @@ public class Reserva_huesped {
         
     }
 
+    public Reserva_huesped( int idHuesped, int idHabitacion, int cantidadPersonas, LocalDate checkIn, LocalDate checkOut, double monto, boolean estado) {
+        
+        this.idHuesped = idHuesped;
+        this.idHabitacion = idHabitacion;
+        this.cantidadPersonas = cantidadPersonas;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.monto = monto;
+        this.estado = estado;
+    }
+
+ 
+    
+
     public int getIdReserva() {
         return idReserva;
     }
@@ -51,12 +69,28 @@ public class Reserva_huesped {
         this.huesped = huesped;
     }
 
+    public int getIdHuesped() {
+        return idHuesped;
+    }
+
+    public void setIdHuesped(int idHuesped) {
+        this.idHuesped = idHuesped;
+    }
+
     public Habitacion getHabitacion() {
         return habitacion ;
     }
 
     public void setHabiacion(Habitacion habitacion) {
         this.habitacion = habitacion;
+    }
+
+    public int getIdHabitacion() {
+        return idHabitacion;
+    }
+
+    public void setIdHabitacion(int idHabitacion) {
+        this.idHabitacion = idHabitacion;
     }
 
     public int getCantidadPersonas() {
