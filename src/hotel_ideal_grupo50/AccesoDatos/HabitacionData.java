@@ -20,7 +20,7 @@ public class HabitacionData {
         }
 
         
-        public void cargarHabitacion (Habitacion habitacion) {
+    public void cargarHabitacion (Habitacion habitacion) {
             
             String sql= "INSERT INTO `habitacion` VALUES (null,?,?,?,?)";
             try {
@@ -39,9 +39,66 @@ public class HabitacionData {
             ps.close();
           
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitación  "+ex.getMessage());
+            
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitación. El número de habitación ya se encuentra cargado.  "+ex.getMessage());
         }
             
         }
+        
+    public Habitacion buscarHabitacion(int numHabitacion) {
+        Habitacion habitacion = null;
+        String sql = "SELECT idHabitacion, numHabitacion, idCategoria, piso, estado FROM habitacion WHERE numHabitacion=?";
+        PreparedStatement ps = null;
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, numHabitacion);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                habitacion = new Habitacion();
+                habitacion.setIdHabitacion(rs.getInt("idHabitacion"));
+                habitacion.setNumHabitacion(rs.getInt("numHabitacion"));
+                habitacion.setIdCategoria(rs.getInt("idCategoria"));
+                habitacion.setPiso(rs.getInt("piso"));
+                habitacion.setEstado(rs.getBoolean("estado"));
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe la habitación");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitación " + ex.getMessage());
+
+        }
+        return habitacion;
+    }
+
+    public void modificarHabitacion(Habitacion habitacion) {
+        String sql = "UPDATE habitacion SET habitacion.numHabitacion=?, habitacion.idCategoria=?, habitacion.piso=?, habitacion.estado=? WHERE habitacion.idHabitacion=?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, habitacion.getNumHabitacion());
+            ps.setInt(2, habitacion.getIdCategoria());
+            ps.setInt(3, habitacion.getPiso());
+            ps.setBoolean(4, habitacion.isEstado());
+            ps.setInt(5, habitacion.getIdHabitacion());
+
+            int filasAfectadas = ps.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                JOptionPane.showMessageDialog(null, "Se actualizó exitosamente la habitación");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar la habitación. Verifica el ID.");
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitación: " + ex.getMessage());
+        }
+    }
     
 }
