@@ -35,6 +35,13 @@ public class Habitacion {
         this.estado = estado;
     }
 
+    public Habitacion(int numHabitacion, Tipo_Habitacion tpo_Habitacion, int piso, boolean estado) {
+        this.numHabitacion = numHabitacion;
+        this.tpo_Habitacion = tpo_Habitacion;
+        this.piso = piso;
+        this.estado = estado;
+    }
+
     public int getIdCategoria() {
         return idCategoria;
     }

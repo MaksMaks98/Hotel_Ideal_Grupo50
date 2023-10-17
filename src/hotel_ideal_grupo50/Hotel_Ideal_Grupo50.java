@@ -9,6 +9,7 @@ import hotel_ideal_grupo50.Entidades.Huesped;
 import hotel_ideal_grupo50.Entidades.Reserva_huesped;
 import hotel_ideal_grupo50.Entidades.Tipo_Habitacion;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Hotel_Ideal_Grupo50 {
 
@@ -20,7 +21,7 @@ public class Hotel_Ideal_Grupo50 {
         ReservaData dataRes = new ReservaData();
         TipoHabitacionData dataT = new TipoHabitacionData();
 
-        Tipo_Habitacion tipo1 = new Tipo_Habitacion("Estándar", 3, 3, "1 cama matrimonial y 1 cama individual", 10000);
+        Tipo_Habitacion tipo1 = new Tipo_Habitacion("Suite Lujo", 4, 2, "2 camas matrimoniales", 14000);
 
         Habitacion habitacion = new Habitacion(13, 9, 1, true);
 
@@ -52,12 +53,16 @@ public class Hotel_Ideal_Grupo50 {
 
 
 //Crear una reserva
-Reserva_huesped reserva = new Reserva_huesped(5, 3, 3, LocalDate.of(2023,4,21), LocalDate.of(2023,4,25), 10000, true);
-dataRes.crearReserva(reserva);
+//Reserva_huesped reserva = new Reserva_huesped(5, 4, 3, LocalDate.of(2022,4,21), LocalDate.of(2022,4,25), 12000, true);
+//dataRes.crearReserva(reserva);
+
+//List<Reserva_huesped> buscarReserva=dataRes.buscarReservaPorIdHuesped(5);
+//
+//        System.out.println("Las reservas encontradas son: "+ buscarReserva);
 
 
-
-        
+        System.out.println("Buscar por cantidad de personas: " + dataT.buscarCantidadPersonas(4));
+        System.out.println("Listar TODOS Huesped: " + dataH.listarTodoHuesped());
         
         
         

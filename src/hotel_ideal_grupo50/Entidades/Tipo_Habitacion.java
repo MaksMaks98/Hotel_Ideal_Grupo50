@@ -27,12 +27,15 @@ public class Tipo_Habitacion {
     }
 
     public Tipo_Habitacion(String categoria, int cantidadCamas, int cantidadPersonas, String tipoCamas, double precio) {
+        
         this.categoria = categoria;
         this.cantidadCamas = cantidadCamas;
         this.cantidadPersonas = cantidadPersonas;
         this.tipoCamas = tipoCamas;
         this.precio = precio;
     }
+
+ 
     
 
     public int getIdTipo() {
