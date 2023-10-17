@@ -5,17 +5,68 @@
  */
 package hotel_ideal_grupo50.Vistas;
 
+import hotel_ideal_grupo50.AccesoDatos.HabitacionData;
+import hotel_ideal_grupo50.AccesoDatos.HuespedData;
+import hotel_ideal_grupo50.AccesoDatos.ReservaData;
+import hotel_ideal_grupo50.AccesoDatos.TipoHabitacionData;
+import hotel_ideal_grupo50.Entidades.Habitacion;
+import hotel_ideal_grupo50.Entidades.Huesped;
+import hotel_ideal_grupo50.Entidades.Reserva_huesped;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
 /**
  *
  * @author maks
  */
 public class Gestion_huesped extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Gestion_huesped
-     */
+    
+    private ArrayList<Huesped> listaH;
+    private ArrayList<Reserva_huesped> listaR;
+   private ArrayList<Habitacion> listaHabi;
+   
+   private HuespedData dataH;
+   private ReservaData dataR;
+   private HabitacionData dataHabi;
+   private TipoHabitacionData dataT;
+   
+   private DefaultTableModel modelo;
+    
+    
+    
     public Gestion_huesped() {
         initComponents();
+        
+        listaH= new ArrayList<>();
+        listaR= new ArrayList<>();
+        listaHabi= new ArrayList<>();
+        
+        dataHabi= new HabitacionData();
+        dataH= new HuespedData();
+        dataT= new TipoHabitacionData ();
+        dataR= new ReservaData();
+        
+        modelo = new DefaultTableModel(){
+       
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        
+        return false; 
+    }
+};
+
+
+
+        armarCabeceraTabla();
+        listarTodos();
+        
     }
 
     /**
@@ -36,19 +87,26 @@ public class Gestion_huesped extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        tDni = new javax.swing.JTextField();
+        BBuscar = new javax.swing.JButton();
+        tNombre = new javax.swing.JTextField();
+        tApellido = new javax.swing.JTextField();
+        tDomicilio = new javax.swing.JTextField();
+        tCorreo = new javax.swing.JTextField();
+        tCel = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jButton3 = new javax.swing.JButton();
+        Radio = new javax.swing.JRadioButton();
+        BActualizar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
+        BCargar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        BEliminar = new javax.swing.JButton();
+        RadioActivos = new javax.swing.JRadioButton();
+        RadioInactivos = new javax.swing.JRadioButton();
+        Refresh = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -88,22 +146,33 @@ public class Gestion_huesped extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Cel/Tel:");
 
-        jButton2.setText("Buscar");
-
-        jLabel7.setText("Estado");
-
-        jRadioButton1.setText("Activo");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        BBuscar.setText("Buscar");
+        BBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                BBuscarActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Actualizar");
+        jLabel7.setText("Estado");
 
+        Radio.setText("Activo");
+        Radio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioActionPerformed(evt);
+            }
+        });
+
+        BActualizar.setText("Actualizar");
+        BActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BActualizarActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel8.setText("Lista de huéspedes");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -113,111 +182,174 @@ public class Gestion_huesped extends javax.swing.JInternalFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(Tabla);
+
+        BCargar.setText("Cargar");
+        BCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BCargarActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel9.setText("Cargar huésped");
+
+        BEliminar.setText("Eliminar");
+        BEliminar.setEnabled(false);
+        BEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BEliminarActionPerformed(evt);
+            }
+        });
+
+        RadioActivos.setText("Activos");
+        RadioActivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioActivosActionPerformed(evt);
+            }
+        });
+
+        RadioInactivos.setText("Inactivos");
+        RadioInactivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioInactivosActionPerformed(evt);
+            }
+        });
+
+        Refresh.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        Refresh.setText("⟲");
+        Refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
-                                .addGap(28, 28, 28)))
-                        .addGap(19, 19, 19)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tDni, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
+                                .addComponent(BBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tCel, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                                    .addComponent(tCorreo)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel6))
-                                        .addGap(19, 19, 19)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(21, 21, 21)
                                         .addComponent(jLabel7)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jRadioButton1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton3))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(Radio))))
+                            .addComponent(BActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(0, 34, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jLabel8)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(RadioActivos)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(RadioInactivos)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(BEliminar)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(Refresh))
+                                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(BCargar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1))))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2))
-                                .addGap(14, 14, 14))
+                                    .addComponent(tDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(BBuscar))
+                                .addGap(10, 10, 10))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel8))
+                            .addComponent(tNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jButton3))))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                            .addComponent(tCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(tApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(Radio))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(tDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BActualizar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(RadioActivos)
+                    .addComponent(RadioInactivos)
+                    .addComponent(Refresh)
+                    .addComponent(BEliminar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addGap(15, 15, 15))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -227,15 +359,145 @@ public class Gestion_huesped extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void RadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_RadioActionPerformed
+
+    private void BActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BActualizarActionPerformed
+        
+        try {
+        Huesped huesped = dataH.buscarHuespedPorDni(tDni.getText());
+        Integer.parseInt(tCel.getText());
+        Pattern pattern = Pattern.compile("^[\\p{L} ]+$", Pattern.UNICODE_CHARACTER_CLASS);
+                Matcher matcher = pattern.matcher(tApellido.getText()+tNombre.getText()+tDomicilio.getText());
+
+                if (matcher.matches()) {
+                    huesped.setDni(tDni.getText());
+                    huesped.setApellido(tApellido.getText());
+                    huesped.setNombre(tNombre.getText());
+                    huesped.setCelular(tCel.getText());
+                    huesped.setDomicilio(tDomicilio.getText());
+                    huesped.setEstado(Radio.isSelected());
+                    dataH.modificarDatosHuesped(huesped.getIdHuesped(), huesped);
+                   
+                } else {
+                    JOptionPane.showMessageDialog(null, "El texto no cumple con el formato deseado.");
+                }
+        
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Los datos no son correctos, revíselos nuevamente." + ex);
+        }
+        
+    }//GEN-LAST:event_BActualizarActionPerformed
+
+    private void BBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBuscarActionPerformed
+     
+        try {
+            Integer.parseInt(tDni.getText()); // Intenta convertir el texto en un número
+            
+           Huesped huesped= dataH.buscarHuespedPorDni(tDni.getText());
+           
+           if (huesped != null){
+               tNombre.setText(huesped.getNombre());
+               tApellido.setText(huesped.getApellido());
+               tDomicilio.setText(huesped.getDomicilio());
+               tCorreo.setText(huesped.getCorreo());
+               tCel.setText(huesped.getCelular());
+               if (huesped.isEstado()){
+                   Radio.setSelected(true);
+               } else {
+               Radio.setSelected(false);
+
+               }
+           } else {
+               tNombre.setText("");
+               tApellido.setText("");
+               tDomicilio.setText("");
+               tCorreo.setText("");
+               tCel.setText("");
+               Radio.setSelected(false);
+           }
+                
+            
+        
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El campo DNI solo acepta números.");
+        }
+       
+    }//GEN-LAST:event_BBuscarActionPerformed
+
+    private void BCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BCargarActionPerformed
+     
+        Huesped huesped = new Huesped(tNombre.getText() ,tApellido.getText() , tDni.getText() , tDomicilio.getText() , tCorreo.getText(), tCel.getText(), Radio.isEnabled());
+     
+     
+     try{
+        Integer.parseInt(tDni.getText());
+        Integer.parseInt(tCel.getText());
+        Pattern pattern = Pattern.compile("^[\\p{L} ]+$", Pattern.UNICODE_CHARACTER_CLASS);
+        Matcher matcher = pattern.matcher(tApellido.getText()+tNombre.getText()+tDomicilio.getText());
+
+                if (matcher.matches()) {
+                    huesped.setDni(tDni.getText());
+                    huesped.setApellido(tApellido.getText());
+                    huesped.setNombre(tNombre.getText());
+                    huesped.setCelular(tCel.getText());
+                    huesped.setDomicilio(tDomicilio.getText());
+                    huesped.setEstado(Radio.isSelected());
+                    dataH.crearHuesped(huesped);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Uno de los campos no cumple con el formato deseado.");
+                }
+        
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Los datos no son correctos, revíselos nuevamente." + ex);
+        }
+        
+        
+        
+        
+     
+     
+    }//GEN-LAST:event_BCargarActionPerformed
+
+    private void BEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BEliminarActionPerformed
+       dataH.borrarHuesped(tDni.getText());
+        
+        
+    }//GEN-LAST:event_BEliminarActionPerformed
+
+    private void RadioActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioActivosActionPerformed
+        RadioInactivos.setSelected(false);
+        DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+        model.setRowCount(0);
+        listarActivos();
+    }//GEN-LAST:event_RadioActivosActionPerformed
+
+    private void RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshActionPerformed
+        DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+    model.setRowCount(0); // Elimina todas las filas de la tabla
+    listarTodos(); // Vuelve a listar los datos
+    }//GEN-LAST:event_RefreshActionPerformed
+
+    private void RadioInactivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioInactivosActionPerformed
+       RadioActivos.setSelected(false);
+        DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+        model.setRowCount(0);
+        listarInactivos();
+    }//GEN-LAST:event_RadioInactivosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BActualizar;
+    private javax.swing.JButton BBuscar;
+    private javax.swing.JButton BCargar;
+    private javax.swing.JButton BEliminar;
+    private javax.swing.JRadioButton Radio;
+    private javax.swing.JRadioButton RadioActivos;
+    private javax.swing.JRadioButton RadioInactivos;
+    private javax.swing.JButton Refresh;
+    private javax.swing.JTable Tabla;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -244,16 +506,90 @@ public class Gestion_huesped extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField tApellido;
+    private javax.swing.JTextField tCel;
+    private javax.swing.JTextField tCorreo;
+    private javax.swing.JTextField tDni;
+    private javax.swing.JTextField tDomicilio;
+    private javax.swing.JTextField tNombre;
     // End of variables declaration//GEN-END:variables
+private void armarCabeceraTabla() {
+        ArrayList<Object> filaCabecera =new ArrayList<>();
+        filaCabecera.add("ID");
+        filaCabecera.add("Nombre");
+        filaCabecera.add("Apellido");
+        filaCabecera.add("DNI");
+        filaCabecera.add("Domicilio");
+        filaCabecera.add("Correo");
+        filaCabecera.add("Teléfono");
+        filaCabecera.add("Estado");
+        
+    for (Object it : filaCabecera) {
+        modelo.addColumn(it);
+    }
+    Tabla.setModel(modelo);
+    
+
+    Tabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+    public void valueChanged(ListSelectionEvent e) {
+        int filaSelec = Tabla.getSelectedRow();
+        if (filaSelec != -1) {
+            Huesped selec = listaH.get(filaSelec); // Obtiene el objeto Huesped desde tu lista
+            tDni.setText(selec.getDni());
+            tNombre.setText(selec.getNombre());
+            tApellido.setText(selec.getApellido());
+            tDomicilio.setText(selec.getDomicilio());
+            tCorreo.setText(selec.getCorreo());
+            tCel.setText(selec.getCelular());
+            Radio.setSelected(selec.isEstado());
+            
+            
+            BEliminar.setEnabled(true);
+        } else {
+            BEliminar.setEnabled(false);
+        }
+    
+    }
+       
+});
+        
+    }
+
+
+private void listarTodos () {
+    
+    
+        listaH= (ArrayList) dataH.listarTodoHuesped();
+       
+        for (Huesped m: listaH){
+            String estado = (m.isEstado()) ? "✓" : "✗";
+            modelo.addRow(new Object[] { m.getIdHuesped(), m.getNombre(), m.getApellido(), m.getDni(), m.getDomicilio(), m.getCorreo(), m.getCelular(), estado });
+        }
+    
+}
+
+
+private void listarActivos() {
+     listaH= (ArrayList) dataH.listarActivosHuesped();
+    for (Huesped m: listaH){
+            String estado = (m.isEstado()) ? "✓" : "✗";
+            modelo.addRow(new Object[] { m.getIdHuesped(), m.getNombre(), m.getApellido(), m.getDni(), m.getDomicilio(), m.getCorreo(), m.getCelular(), estado });
+        }
+}
+
+    private void listarInactivos() {
+listaH= (ArrayList) dataH.listarInactivosHuesped();
+    for (Huesped m: listaH){
+            String estado = (m.isEstado()) ? "✓" : "✗";
+            modelo.addRow(new Object[] { m.getIdHuesped(), m.getNombre(), m.getApellido(), m.getDni(), m.getDomicilio(), m.getCorreo(), m.getCelular(), estado });
+        }
+    }
+
+
+
 }

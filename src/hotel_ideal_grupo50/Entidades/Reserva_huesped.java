@@ -50,6 +50,17 @@ public class Reserva_huesped {
         this.estado = estado;
     }
 
+    public Reserva_huesped(int idReserva, int idHuesped, int idHabitacion, int cantidadPersonas, LocalDate checkIn, LocalDate checkOut, double monto, boolean estado) {
+        this.idReserva = idReserva;
+        this.idHuesped = idHuesped;
+        this.idHabitacion = idHabitacion;
+        this.cantidadPersonas = cantidadPersonas;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.monto = monto;
+        this.estado = estado;
+    }
+
  
     
 
@@ -135,8 +146,9 @@ public class Reserva_huesped {
 
     @Override
     public String toString() {
-        return "Reserva_huesped{" + "idReserva=" + idReserva + ", huesped=" + huesped + ", habitacion=" + habitacion + ", cantidadPersonas=" + cantidadPersonas + ", checkIn=" + checkIn + ", checkOut=" + checkOut + ", monto=" + monto + ", estado=" + estado + '}';
+        return "Reserva_huesped{" + "idReserva=" + idReserva + "  idHuesped=" + idHuesped + ", idHabitacion=" + idHabitacion + ", cantidadPersonas=" + cantidadPersonas + ", checkIn=" + checkIn + ", checkOut=" + checkOut + ", monto=" + monto + ", estado=" + estado + '}';
     }
+
 
     
    

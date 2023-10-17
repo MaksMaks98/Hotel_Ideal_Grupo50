@@ -7,6 +7,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
 
@@ -101,4 +103,36 @@ public class HabitacionData {
         }
     }
     
-}
+    public List<Habitacion> buscarHabitaciones (int idCategoria) {
+        
+        List<Habitacion> habitaciones = new ArrayList<>();
+        
+        try {
+	     String sql = "SELECT * FROM habitacion WHERE idCategoria=? AND estado = 0";
+	     PreparedStatement ps = con.prepareStatement(sql);
+              ps.setInt(1,idCategoria);
+	      ResultSet rs = ps.executeQuery();
+              
+	while (rs.next()) {
+            
+	Habitacion habitacion = new Habitacion(); 
+	habitacion =new Habitacion();
+        
+	habitacion.setIdHabitacion(rs.getInt("idHabitacion"));
+	habitacion.setNumHabitacion(rs.getInt("numHabitacion"));
+	habitacion.setIdCategoria(rs.getInt("idCategoria"));
+	habitacion.setPiso(rs.getInt("piso"));
+        habitacion.setEstado(rs.getBoolean(5));
+        habitaciones.add(habitacion);
+	}
+	ps.close(); 
+
+	} catch (SQLException ex) {
+	JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Reserva "+ex.getMessage());
+	}
+	return habitaciones;
+	}
+        
+    }
+    
+

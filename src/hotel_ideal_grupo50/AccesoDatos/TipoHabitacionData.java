@@ -11,6 +11,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
 
@@ -52,4 +56,35 @@ public class TipoHabitacionData {
             
         }
         
+        public Tipo_Habitacion buscarCantidadPersonas (int cantPersonas ) {
+            
+
+            
+                Tipo_Habitacion categoria = new Tipo_Habitacion();
+        try {
+            
+           String sql="SELECT idCategoria, nomCategoria, cantidadCamas, cantPersonas, tipoCama, precio FROM categoria WHERE cantPersonas=?";
+             PreparedStatement ps = con.prepareStatement(sql);
+             ps.setInt(1,cantPersonas);
+             ResultSet rs = ps.executeQuery();
+             
+             while (rs.next()){
+                 categoria.setIdTipo(rs.getInt("idCategoria"));
+                 categoria.setCategoria(rs.getString("nomCategoria"));
+                 categoria.setCantidadCamas(rs.getInt("cantidadCamas"));
+                 categoria.setCantidadPersonas(rs.getInt("cantPersonas"));
+                 categoria.setTipoCamas(rs.getString("tipoCama"));
+                 categoria.setPrecio(rs.getDouble("precio"));
+                               
+             }
+             ps.close();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Categorias.  "+ ex);
+        }
+        
+        return categoria;
+            
+            
+        }
 }
