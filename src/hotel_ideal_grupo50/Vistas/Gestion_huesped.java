@@ -226,7 +226,9 @@ public class Gestion_huesped extends javax.swing.JInternalFrame {
         });
 
         Refresh.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        Refresh.setText("⟲");
+        Refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel_ideal_grupo50/resourses/imgs/actualizar.png"))); // NOI18N
+        Refresh.setActionCommand("");
+        Refresh.setLabel("");
         Refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RefreshActionPerformed(evt);
@@ -272,7 +274,7 @@ public class Gestion_huesped extends javax.swing.JInternalFrame {
                             .addComponent(BActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(0, 34, Short.MAX_VALUE)
+                            .addGap(0, 0, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
@@ -298,7 +300,7 @@ public class Gestion_huesped extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,7 +430,7 @@ public class Gestion_huesped extends javax.swing.JInternalFrame {
 
     private void BCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BCargarActionPerformed
      
-        Huesped huesped = new Huesped(tNombre.getText() ,tApellido.getText() , tDni.getText() , tDomicilio.getText() , tCorreo.getText(), tCel.getText(), Radio.isEnabled());
+        Huesped huesped = new Huesped();
      
      
      try{
@@ -437,7 +439,8 @@ public class Gestion_huesped extends javax.swing.JInternalFrame {
         Pattern pattern = Pattern.compile("^[\\p{L} ]+$", Pattern.UNICODE_CHARACTER_CLASS);
         Matcher matcher = pattern.matcher(tApellido.getText()+tNombre.getText()+tDomicilio.getText());
 
-                if (matcher.matches()) {
+                if (matcher.matches()& tDni.getText()!=null & tApellido.getText()!=null & tNombre.getText()!=null) {
+                    
                     huesped.setDni(tDni.getText());
                     huesped.setApellido(tApellido.getText());
                     huesped.setNombre(tNombre.getText());
@@ -473,18 +476,18 @@ public class Gestion_huesped extends javax.swing.JInternalFrame {
         listarActivos();
     }//GEN-LAST:event_RadioActivosActionPerformed
 
-    private void RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshActionPerformed
-        DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
-    model.setRowCount(0); // Elimina todas las filas de la tabla
-    listarTodos(); // Vuelve a listar los datos
-    }//GEN-LAST:event_RefreshActionPerformed
-
     private void RadioInactivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioInactivosActionPerformed
        RadioActivos.setSelected(false);
         DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
         model.setRowCount(0);
         listarInactivos();
     }//GEN-LAST:event_RadioInactivosActionPerformed
+
+    private void RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshActionPerformed
+        DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+        model.setRowCount(0); // Elimina todas las filas de la tabla
+        listarTodos(); // Vuelve a listar los datos
+    }//GEN-LAST:event_RefreshActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

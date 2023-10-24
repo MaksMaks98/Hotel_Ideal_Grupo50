@@ -108,7 +108,7 @@ public class HabitacionData {
         List<Habitacion> habitaciones = new ArrayList<>();
         
         try {
-	     String sql = "SELECT * FROM habitacion WHERE idCategoria=? AND estado = 0";
+	     String sql = "SELECT * FROM habitacion WHERE idCategoria=?";
 	     PreparedStatement ps = con.prepareStatement(sql);
               ps.setInt(1,idCategoria);
 	      ResultSet rs = ps.executeQuery();
@@ -132,7 +132,43 @@ public class HabitacionData {
 	}
 	return habitaciones;
 	}
+    
+    
+    public List<Habitacion> habitacionesDisponibles (Date fechaIngreso, Date fechaEgreso){
+            
+            List<Habitacion> habitaciones = new ArrayList<>();
+            
+            try {
+                
+                String sql = "SELECT * FROM habitacion WHERE idHabitacion NOT IN (SELECT idHabitacion FROM reserva WHERE (fechaIngreso<=? AND fechaSalida>= ?))AND estado=1";
+                PreparedStatement ps = con.prepareStatement(sql);
+                 ps.setDate(1, fechaEgreso);
+                 ps.setDate(2, fechaIngreso);
+                ResultSet rs = ps.executeQuery();
+                
+                while (rs.next()) {
+            
+	Habitacion habitacion = new Habitacion(); 
+	habitacion =new Habitacion();
         
+	habitacion.setIdHabitacion(rs.getInt("idHabitacion"));
+	habitacion.setNumHabitacion(rs.getInt("numHabitacion"));
+	habitacion.setIdCategoria(rs.getInt("idCategoria"));
+	habitacion.setPiso(rs.getInt("piso"));
+        habitacion.setEstado(rs.getBoolean(5));
+        habitaciones.add(habitacion);
+	}
+	ps.close(); 
+                
+                
+            }catch (SQLException ex) {
+               JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Reserva" + ex);
+            }
+    
+            return habitaciones;
+            
     }
     
+}
+
 

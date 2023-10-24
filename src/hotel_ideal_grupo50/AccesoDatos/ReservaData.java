@@ -1,6 +1,7 @@
 
 package hotel_ideal_grupo50.AccesoDatos;
 
+import hotel_ideal_grupo50.Entidades.Habitacion;
 import hotel_ideal_grupo50.Entidades.Reserva_huesped;
 
 import java.sql.Connection;
@@ -81,6 +82,10 @@ public class ReservaData {
 	}
 	return reservas;
 	}
+        
+        
+            
+        
         
         
         

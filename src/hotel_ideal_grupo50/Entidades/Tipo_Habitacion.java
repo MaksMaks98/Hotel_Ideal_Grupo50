@@ -35,6 +35,11 @@ public class Tipo_Habitacion {
         this.precio = precio;
     }
 
+    public Tipo_Habitacion(int idTipo, String categoria) {
+        this.idTipo = idTipo;
+        this.categoria = categoria;
+    }
+
  
     
 
@@ -88,8 +93,11 @@ public class Tipo_Habitacion {
 
     @Override
     public String toString() {
-        return "tipo_Habitacion{" + "idTipo=" + idTipo + ", categoria=" + categoria + ", cantidadCamas=" + cantidadCamas + ", cantidadPersonas=" + cantidadPersonas + ", tipoCamas=" + tipoCamas + ", precio=" + precio + '}';
+        return  categoria ;
     }
     
+    public String toString2 (){
+        return categoria;
+    }
     
 }

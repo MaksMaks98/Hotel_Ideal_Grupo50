@@ -5,6 +5,7 @@
  */
 package hotel_ideal_grupo50.AccesoDatos;
 
+import hotel_ideal_grupo50.ClasesExtra.CategoriaItem;
 import hotel_ideal_grupo50.Entidades.Habitacion;
 import hotel_ideal_grupo50.Entidades.Tipo_Habitacion;
 import java.sql.Connection;
@@ -87,4 +88,55 @@ public class TipoHabitacionData {
             
             
         }
+
+//   public String[] listarCategorias() {
+//    try {
+//        String sql = "SELECT nomCategoria FROM categoria"; 
+//        PreparedStatement ps = con.prepareStatement(sql);
+//        ResultSet rs = ps.executeQuery();
+//
+//        List<String> categorias = new ArrayList<>(); 
+//        
+//
+//        while (rs.next()) {
+//            String nombreCategoria = rs.getString("nomCategoria");
+//            categorias.add(nombreCategoria); 
+//        }
+//
+//        ps.close();
+//
+//        // Convertir la lista a un array de strings
+//        String[] vectorDeStrings = categorias.toArray(new String[0]);
+//
+//        return vectorDeStrings;
+//    } catch (SQLException ex) {
+//        JOptionPane.showMessageDialog(null, "Error, no se pudo acceder a la tabla Categoría");
+//        return null; 
+//    }
+//    }
+   
+   public ArrayList<CategoriaItem> listarCategoriasID() {
+    ArrayList<CategoriaItem> categorias = new ArrayList<>();
+    try {
+        String sql = "SELECT idCategoria, nomCategoria FROM categoria";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int idCategoria = rs.getInt("idCategoria");
+            String nombreCategoria = rs.getString("nomCategoria");
+            CategoriaItem categoria = new CategoriaItem(idCategoria, nombreCategoria);
+            categorias.add(categoria);
+        }
+
+        ps.close();
+        return categorias;
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error, no se pudo acceder a la tabla Categoría");
+        return null;
+    }
+}
+
+        
+        
 }
