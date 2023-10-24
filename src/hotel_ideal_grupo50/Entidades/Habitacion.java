@@ -35,12 +35,7 @@ public class Habitacion {
         this.estado = estado;
     }
 
-    public Habitacion(int numHabitacion, Tipo_Habitacion tpo_Habitacion, int piso, boolean estado) {
-        this.numHabitacion = numHabitacion;
-        this.tpo_Habitacion = tpo_Habitacion;
-        this.piso = piso;
-        this.estado = estado;
-    }
+   
 
     public int getIdCategoria() {
         return idCategoria;
@@ -93,7 +88,7 @@ public class Habitacion {
 
     @Override
     public String toString() {
-        return "habitacion{" + "idHabitacion=" + idHabitacion + ", numHabitacion=" + numHabitacion + "  idCategoria: "+ idCategoria + ", tpo_Habitacion=" + tpo_Habitacion + ", piso=" + piso + ", estado=" + estado + '}';
+        return "habitacion{" + "idHabitacion=" + idHabitacion + ", numHabitacion=" + numHabitacion + "  idCategoria: "+ idCategoria +  ", piso=" + piso + ", estado=" + estado + '}';
     }
     
     
