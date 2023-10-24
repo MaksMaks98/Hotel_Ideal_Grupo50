@@ -8,6 +8,7 @@ import hotel_ideal_grupo50.Entidades.Habitacion;
 import hotel_ideal_grupo50.Entidades.Huesped;
 import hotel_ideal_grupo50.Entidades.Reserva_huesped;
 import hotel_ideal_grupo50.Entidades.Tipo_Habitacion;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -63,7 +64,12 @@ public class Hotel_Ideal_Grupo50 {
 
         System.out.println("Buscar por cantidad de personas: " + dataT.buscarCantidadPersonas(4));
         System.out.println("Listar TODOS Huesped: " + dataH.listarTodoHuesped());
+//        System.out.println("Listar categorias: " +dataT.listarCategorias());
+        System.out.println("Listar categorias: " +dataT.listarCategoriasID());
+        System.out.println("Buscar habitacion 213 : "+ dataHabi.buscarHabitacion(213));
         
+       System.out.println("Buscar habitaciones disponibles: " + dataHabi.habitacionesDisponibles(Date.valueOf("2023-02-10"), Date.valueOf("2023-05-02")));
+
         
         
     }
