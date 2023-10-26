@@ -89,33 +89,9 @@ public class TipoHabitacionData {
             
         }
 
-//   public String[] listarCategorias() {
-//    try {
-//        String sql = "SELECT nomCategoria FROM categoria"; 
-//        PreparedStatement ps = con.prepareStatement(sql);
-//        ResultSet rs = ps.executeQuery();
-//
-//        List<String> categorias = new ArrayList<>(); 
-//        
-//
-//        while (rs.next()) {
-//            String nombreCategoria = rs.getString("nomCategoria");
-//            categorias.add(nombreCategoria); 
-//        }
-//
-//        ps.close();
-//
-//        // Convertir la lista a un array de strings
-//        String[] vectorDeStrings = categorias.toArray(new String[0]);
-//
-//        return vectorDeStrings;
-//    } catch (SQLException ex) {
-//        JOptionPane.showMessageDialog(null, "Error, no se pudo acceder a la tabla Categoría");
-//        return null; 
-//    }
-//    }
+
    
-   public ArrayList<CategoriaItem> listarCategoriasID() {
+         public ArrayList<CategoriaItem> listarCategoriasID() {
     ArrayList<CategoriaItem> categorias = new ArrayList<>();
     try {
         String sql = "SELECT idCategoria, nomCategoria FROM categoria";
@@ -136,6 +112,33 @@ public class TipoHabitacionData {
         return null;
     }
 }
+         
+         public Tipo_Habitacion buscarCategoriaPorID (int idCategoria){
+             Tipo_Habitacion categoria = new Tipo_Habitacion();
+             try {
+                 String sql= "SELECT * FROM categoria WHERE idCategoria=?";
+              PreparedStatement ps = con.prepareStatement(sql);
+             ps.setInt(1,idCategoria);
+             ResultSet rs = ps.executeQuery();
+             
+             while (rs.next()){
+                 categoria.setIdTipo(rs.getInt("idCategoria"));
+                 categoria.setCategoria(rs.getString("nomCategoria"));
+                 categoria.setCantidadCamas(rs.getInt("cantidadCamas"));
+                 categoria.setCantidadPersonas(rs.getInt("cantPersonas"));
+                 categoria.setTipoCamas(rs.getString("tipoCama"));
+                 categoria.setPrecio(rs.getDouble("precio"));
+                               
+             }
+             ps.close();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Categorias.  "+ ex);
+        }
+        
+        return categoria;
+             
+         }
 
         
         

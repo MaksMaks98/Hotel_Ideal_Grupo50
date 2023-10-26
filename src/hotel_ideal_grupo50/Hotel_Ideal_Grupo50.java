@@ -54,7 +54,7 @@ public class Hotel_Ideal_Grupo50 {
 
 
 //Crear una reserva
-//Reserva_huesped reserva = new Reserva_huesped(5, 4, 3, LocalDate.of(2022,4,21), LocalDate.of(2022,4,25), 12000, true);
+Reserva_huesped reserva = new Reserva_huesped(10,5, 4, 3, LocalDate.of(2022,4,21), LocalDate.of(2022,4,25), 12000, true);
 //dataRes.crearReserva(reserva);
 
 //List<Reserva_huesped> buscarReserva=dataRes.buscarReservaPorIdHuesped(5);
@@ -70,6 +70,15 @@ public class Hotel_Ideal_Grupo50 {
         
        System.out.println("Buscar habitaciones disponibles: " + dataHabi.habitacionesDisponibles(Date.valueOf("2023-02-10"), Date.valueOf("2023-05-02")));
 
+//       dataRes.modificarReserva(reserva);
+       
+       
+        System.out.println("Calculo de precio: "+ dataRes.calcularMonto(LocalDate.of(2022,4,21), LocalDate.of(2022,4,25), 10d));
+        
+        System.out.println("Buscar Habitacion x id : " + dataHabi.buscarHabitacionPorID(4));
+        
+        System.out.println("Buscar categoria x ID: "+ dataT.buscarCategoriaPorID(9));
+        
         
         
     }
