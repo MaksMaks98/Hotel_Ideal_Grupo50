@@ -102,6 +102,39 @@ public class HuespedData {
         return huesped;
     }
 
+    public Huesped buscarHuespedPorID(int idHuesped) {
+        Huesped huesped = null;
+        String sql = "SELECT * FROM huesped WHERE idHuesped=?";
+        PreparedStatement ps = null;
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idHuesped);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                huesped = new Huesped();
+                huesped.setIdHuesped(rs.getInt("idHuesped"));
+                huesped.setNombre(rs.getString("nombre"));
+                huesped.setApellido(rs.getString("apellido"));
+                huesped.setDni(rs.getString("dni"));
+                huesped.setDomicilio(rs.getString("domicilio"));
+                huesped.setCorreo(rs.getString("correo"));
+                huesped.setCelular(rs.getString("celular"));
+                huesped.setEstado(rs.getBoolean(8));
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el huésped");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped " + ex.getMessage());
+
+        }
+        return huesped;
+    }
     public void modificarDatosHuesped(int id, Huesped huesped) {
         String sql = "UPDATE huesped SET nombre=?, apellido=?, dni=?, domicilio=?, correo=?, celular=?, estado=?  WHERE idHuesped=?";
         PreparedStatement ps = null;

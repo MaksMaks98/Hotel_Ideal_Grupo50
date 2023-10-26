@@ -38,10 +38,10 @@ public class Gestion_habitacion extends javax.swing.JInternalFrame {
    private List<Habitacion> listaHabi;
    private List<CategoriaItem> categoriasID;
    
-   
+   private String nombreSeleccionado;
    private int idSeleccionado;
    private Habitacion selec;
-   private String nombreSeleccionado;
+   
    private HabitacionData dataHabi;
    private TipoHabitacionData dataT;
    private DefaultTableModel modelo;
