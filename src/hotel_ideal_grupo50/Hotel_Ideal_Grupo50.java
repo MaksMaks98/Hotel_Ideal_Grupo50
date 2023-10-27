@@ -68,7 +68,7 @@ Reserva_huesped reserva = new Reserva_huesped(10,5, 4, 3, LocalDate.of(2022,4,21
         System.out.println("Listar categorias: " +dataT.listarCategoriasID());
         System.out.println("Buscar habitacion 213 : "+ dataHabi.buscarHabitacion(213));
         
-       System.out.println("Buscar habitaciones disponibles: " + dataHabi.habitacionesDisponibles(Date.valueOf("2023-02-10"), Date.valueOf("2023-05-02")));
+       System.out.println("Buscar habitaciones disponibles: " + dataHabi.habitacionesDisponibles(Date.valueOf("2023-02-10"), Date.valueOf("2023-05-02"),1));
 
 //       dataRes.modificarReserva(reserva);
        

@@ -158,7 +158,7 @@ public class Gestion_habitacion extends javax.swing.JInternalFrame {
             }
         });
 
-        bBuscarNumero.setText("Buscar");
+        bBuscarNumero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel_ideal_grupo50/resourses/imgs/buscando.png"))); // NOI18N
         bBuscarNumero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bBuscarNumeroActionPerformed(evt);
@@ -237,8 +237,8 @@ public class Gestion_habitacion extends javax.swing.JInternalFrame {
                                         .addGap(20, 20, 20)
                                         .addComponent(numeroHabitacion)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bBuscarNumero)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(bBuscarNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(31, 31, 31)
                                         .addComponent(jLabel3))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel2)
@@ -248,9 +248,9 @@ public class Gestion_habitacion extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel4)
                                         .addGap(0, 0, Short.MAX_VALUE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(numeroPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Radio))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Radio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(numeroPiso))
                                 .addGap(33, 33, 33)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -268,9 +268,9 @@ public class Gestion_habitacion extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(numeroHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bBuscarNumero)
                             .addComponent(jLabel3)
-                            .addComponent(numeroPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(numeroPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bBuscarNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -348,9 +348,7 @@ public class Gestion_habitacion extends javax.swing.JInternalFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
        try{
            
-          
-           
-           if (Integer.parseInt(numeroHabitacion.getValue().toString())!= 0 && dataHabi.buscarHabitacion(Integer.parseInt(numeroHabitacion.getValue().toString()))!=null) {
+           if (Integer.parseInt(numeroHabitacion.getValue().toString())!= 0 && dataHabi.buscarHabitacion(Integer.parseInt(numeroHabitacion.getValue().toString()))==null) {
                
                Habitacion habitacion = new Habitacion (Integer.parseInt(numeroHabitacion.getValue().toString()), idSeleccionado, Integer.parseInt(numeroPiso.getValue().toString()), Radio.isSelected());
            dataHabi.cargarHabitacion(habitacion);
