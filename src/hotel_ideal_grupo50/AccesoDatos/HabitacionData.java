@@ -133,7 +133,11 @@ public class HabitacionData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitación: " + ex.getMessage());
         }
     }
-    
+
+
+
+
+
     public List<Habitacion> buscarHabitaciones (int idCategoria) {
         
         List<Habitacion> habitaciones = new ArrayList<>();
@@ -163,18 +167,35 @@ public class HabitacionData {
 	}
 	return habitaciones;
 	}
+
+
+
+
+
+
+
+
+
     
     
-    public List<Habitacion> habitacionesDisponibles (Date fechaIngreso, Date fechaEgreso){
+    public List<Habitacion> habitacionesDisponibles (Date fechaIngreso, Date fechaEgreso, int personas){
             
             List<Habitacion> habitaciones = new ArrayList<>();
             
             try {
                 
-                String sql = "SELECT * FROM habitacion WHERE idHabitacion NOT IN (SELECT idHabitacion FROM reserva WHERE (fechaIngreso<=? AND fechaSalida>= ?))AND estado=1";
+                String sql = "SELECT h.* \n" +
+"FROM habitacion AS h\n" +
+"LEFT JOIN reserva AS r ON h.idHabitacion = r.idHabitacion AND (r.fechaIngreso <= ? AND r.fechaSalida >= ?)\n" +
+"LEFT JOIN categoria AS c ON h.idCategoria = c.idCategoria\n" +
+"WHERE \n" +
+"  (h.estado = 0) \n" +
+"  AND (r.idReserva IS NULL OR r.estado = 0) \n" +
+"  AND c.cantPersonas = ?;";
                 PreparedStatement ps = con.prepareStatement(sql);
                  ps.setDate(1, fechaEgreso);
                  ps.setDate(2, fechaIngreso);
+                 ps.setInt(3, personas);
                 ResultSet rs = ps.executeQuery();
                 
                 while (rs.next()) {

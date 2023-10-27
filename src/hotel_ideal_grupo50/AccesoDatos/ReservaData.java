@@ -1,6 +1,7 @@
 
 package hotel_ideal_grupo50.AccesoDatos;
 
+
 import hotel_ideal_grupo50.Entidades.Habitacion;
 import hotel_ideal_grupo50.Entidades.Reserva_huesped;
 
@@ -172,7 +173,39 @@ public class ReservaData {
         
     }
         
+         public List<Reserva_huesped> listarActivosReservas() {
+       
+        List<Reserva_huesped> reservas = new ArrayList<>();
+        String sql ="SELECT * FROM reserva WHERE estado = 1 ";
+            PreparedStatement ps = null;
+        try {
+           ps = con.prepareStatement(sql);
+	   ResultSet rs = ps.executeQuery(); 
         
+	while (rs.next()) {
+           
+	Reserva_huesped reserva=new Reserva_huesped();
+	reserva.setIdReserva(rs.getInt("idReserva"));
+	reserva.setIdHuesped(rs.getInt("idHuesped"));
+	reserva.setIdHabitacion(rs.getInt("idHabitacion"));
+	reserva.setCantidadPersonas(rs.getInt("cantidadPersona"));
+	reserva.setCheckIn(rs.getDate("fechaIngreso").toLocalDate());
+	reserva.setCheckOut(rs.getDate("fechaSalida").toLocalDate());
+	reserva.setMonto(rs.getDouble("monto"));
+	reserva.setEstado(rs.getBoolean("estado"));
+	reservas.add(reserva);
+        }    
+        ps.close();
+        
+        } catch (SQLException ex) {
+	JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Reserva "+ex.getMessage());	
+        
+        
+    }
+         return reservas;
+        
+        
+    }
             
         
         
