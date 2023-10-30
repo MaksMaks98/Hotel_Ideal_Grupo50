@@ -361,9 +361,10 @@ public class Gestion_huesped extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_RadioActionPerformed
 
     private void BActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BActualizarActionPerformed
-        
+   
         try {
         Huesped huesped = dataH.buscarHuespedPorDni(tDni.getText());
+        if (tDni.getText()!=null && tApellido.getText()!=null && tNombre.getText()!=null){
         Integer.parseInt(tCel.getText());
         Pattern pattern = Pattern.compile("^[\\p{L} ]+$", Pattern.UNICODE_CHARACTER_CLASS);
                 Matcher matcher = pattern.matcher(tApellido.getText()+tNombre.getText()+tDomicilio.getText());
@@ -380,10 +381,13 @@ public class Gestion_huesped extends javax.swing.JInternalFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "El texto no cumple con el formato deseado.");
                 }
-        
+        } else {
+             JOptionPane.showMessageDialog(null, "Los campor DNI, Nombre y Apellido no pueden estar vacíos.");
+        }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Los datos no son correctos, revíselos nuevamente." + ex);
         }
+        
         
     }//GEN-LAST:event_BActualizarActionPerformed
 
@@ -440,6 +444,7 @@ public class Gestion_huesped extends javax.swing.JInternalFrame {
                     huesped.setApellido(tApellido.getText());
                     huesped.setNombre(tNombre.getText());
                     huesped.setCelular(tCel.getText());
+                    huesped.setCorreo(tCorreo.getText());
                     huesped.setDomicilio(tDomicilio.getText());
                     huesped.setEstado(Radio.isSelected());
                     dataH.crearHuesped(huesped);
