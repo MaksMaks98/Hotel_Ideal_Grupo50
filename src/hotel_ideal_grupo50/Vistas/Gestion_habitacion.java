@@ -67,7 +67,7 @@ public class Gestion_habitacion extends javax.swing.JInternalFrame {
             }
         };
         
-
+Tabla.getTableHeader().setReorderingAllowed(false);
         
         
         
@@ -265,12 +265,13 @@ public class Gestion_habitacion extends javax.swing.JInternalFrame {
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(numeroHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(numeroPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bBuscarNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bBuscarNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(numeroHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3)
+                                .addComponent(numeroPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -324,12 +325,21 @@ public class Gestion_habitacion extends javax.swing.JInternalFrame {
 
     private void bBuscarNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarNumeroActionPerformed
        
+       
+        try {
         modelo.setRowCount(0);
         int numero = Integer.parseInt(numeroHabitacion.getValue().toString());
         
         Habitacion habitacion = dataHabi.buscarHabitacion(numero);
  
-        listarHabitaciones(habitacion);
+        listarHabitaciones(habitacion); 
+          
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "En el campo 'Número de habitación' debe ingresarse un numero entre 0 - 440");
+        }
+        
+        
+        
 
 
     }//GEN-LAST:event_bBuscarNumeroActionPerformed
@@ -433,7 +443,7 @@ private void armarCabeceraTabla() {
       
     for (Habitacion m: listaHabi){
             String estado = (m.isEstado()) ? "✓" : "✗";
-            modelo.addRow(new Object[] { m.getIdCategoria(), m.getNumHabitacion(), nombreSeleccionado, m.getPiso(), estado });
+            modelo.addRow(new Object[] { m.getIdHabitacion(), m.getNumHabitacion(), nombreSeleccionado, m.getPiso(), estado });
         }  
     }
 

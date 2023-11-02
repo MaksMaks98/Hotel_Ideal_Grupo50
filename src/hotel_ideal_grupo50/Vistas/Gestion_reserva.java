@@ -97,7 +97,8 @@ public class Gestion_reserva extends javax.swing.JInternalFrame {
         
         Tabla.setRowSelectionAllowed(true); // Permite la selección de filas
         Tabla.setColumnSelectionAllowed(false); // No permite la selección de columnas
-       
+       Tabla.getTableHeader().setReorderingAllowed(false);
+       Tabla2.getTableHeader().setReorderingAllowed(false);
         
         armarCabeceraTabla();
         armarCabeceraTabla2();
@@ -168,7 +169,7 @@ public class Gestion_reserva extends javax.swing.JInternalFrame {
 
         setResizable(true);
         setTitle("Gestión de reservas");
-        setPreferredSize(new java.awt.Dimension(1400, 570));
+        setPreferredSize(new java.awt.Dimension(1300, 550));
 
         jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -324,64 +325,69 @@ public class Gestion_reserva extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(73, 73, 73)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 68, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel13)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(fechaSALIDA, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jLabel5)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(cantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jButton6))))
-                                .addGap(48, 48, 48))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(BCalcular)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                                    .addComponent(tMONTO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(tMontoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(45, 45, 45)
-                                        .addComponent(tNombreHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(21, 21, 21))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(139, 139, 139)
-                                        .addComponent(jLabel3)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tDiasTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tDniConfirmarRes, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(250, 250, 250))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fechaINGRESO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(91, 91, 91)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel13)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(fechaSALIDA, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(jLabel5)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(cantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(jButton6))))
+                                        .addGap(48, 48, 48))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(BCalcular)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                                            .addComponent(tMONTO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(tMontoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(45, 45, 45)
+                                                .addComponent(tNombreHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(21, 21, 21))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(139, 139, 139)
+                                                .addComponent(jLabel3)
+                                                .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel18)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tDiasTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(tDniConfirmarRes, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(250, 250, 250))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(fechaINGRESO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(127, 127, 127)))
+                        .addGap(55, 55, 55)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -389,8 +395,8 @@ public class Gestion_reserva extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel19))
                                 .addGap(32, 32, 32)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(categoria, 0, 131, Short.MAX_VALUE)
-                                    .addComponent(tDNI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(categoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(30, 30, 30)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -408,14 +414,8 @@ public class Gestion_reserva extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(bBuscarDNI, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Radio2)
-                                .addGap(266, 266, 266)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tMonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel2)
+                                .addComponent(jLabel2)
+                                .addGap(48, 48, 48))
                             .addComponent(jScrollPane1)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel16)
@@ -424,12 +424,19 @@ public class Gestion_reserva extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel17)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(DateFechaEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(62, 62, 62))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(24, 24, 24))
+                                .addComponent(DateFechaEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(Radio2)
+                                        .addGap(266, 266, 266)
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tMonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                .addGap(98, 98, 98))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -438,6 +445,7 @@ public class Gestion_reserva extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel11))
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -500,7 +508,7 @@ public class Gestion_reserva extends javax.swing.JInternalFrame {
                                     .addComponent(fechaINGRESO, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(fechaSALIDA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -530,13 +538,12 @@ public class Gestion_reserva extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(tNombreHuesped)
                                 .addGap(8, 8, 8)))))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -554,7 +561,7 @@ public class Gestion_reserva extends javax.swing.JInternalFrame {
         DateFechaIngreso.setDate(null);
         DateFechaEgreso.setDate(null);
         tMonto.setText("");
-        RadioInactivas2.setSelected(false); 
+        RadioInactivas2.setSelected(true); 
         
         RadioActivas2.setSelected(false);
         DefaultTableModel model = (DefaultTableModel) Tabla2.getModel();
@@ -606,17 +613,14 @@ public class Gestion_reserva extends javax.swing.JInternalFrame {
            CategoriaItem categoriaselec= (CategoriaItem)categoria.getSelectedItem();
            int cantPer= (Integer)cantPersonas.getValue();
            boolean estado= Radio2.isSelected();
-//           Date fechaIn = DateFechaIngreso.getDate();
-//           LocalDate fechaIngreso = fechaIn.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//
-//           Date fechaEg = DateFechaEgreso.getDate();
-//           LocalDate fechaEgreso = fechaEg.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
            
           Habitacion habi= dataHabi.buscarHabitacionPorID(selec2.getIdHabitacion());
           
-          Tipo_Habitacion categoria = dataT.buscarCategoriaPorID(habi.getIdCategoria());
+          Tipo_Habitacion categoria = dataT.buscarCategoriaPorID(categoriaselec.getIdCategoria());
           
-          double precio= categoria.getPrecio();
+         double precio= categoria.getPrecio();
+
           
          double montoActualizado= dataR.calcularMonto(fechaIngreso, fechaSalida, precio);
          
@@ -642,6 +646,7 @@ public class Gestion_reserva extends javax.swing.JInternalFrame {
         DateFechaIngreso.setDate(null);
         DateFechaEgreso.setDate(null);
         tMonto.setText("");
+        
         RadioInactivas2.setSelected(false);
         DefaultTableModel model = (DefaultTableModel) Tabla2.getModel();
         model.setRowCount(0);
@@ -649,19 +654,17 @@ public class Gestion_reserva extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_RadioActivas2ActionPerformed
 public static boolean validarFechas(LocalDate fechaIngreso, LocalDate fechaSalida) {
         LocalDate fechaHoy = LocalDate.now();
-       
+       boolean bandera=false;
 
         // Verificar que la fecha de ingreso no sea anterior a la fecha de hoy
-        if (fechaIngreso.isBefore(fechaHoy)) {
+        if (fechaIngreso.isBefore(fechaHoy)&fechaSalida.isAfter(fechaHoy) || fechaIngreso.isAfter(fechaHoy) || fechaSalida.isEqual(fechaHoy)) {
+            return true;
+        } else if (fechaIngreso.isAfter(fechaHoy)& fechaSalida.isBefore(fechaHoy)){
             return false;
         }
-
-        // Verificar que la fecha de ingreso sea anterior a la fecha de salida
-        if (fechaIngreso.isAfter(fechaSalida)) {
-            return false;
-        }
-
-        return true;
+        
+        return false;
+        
     }
 
   
@@ -681,7 +684,7 @@ public static boolean validarFechas(LocalDate fechaIngreso, LocalDate fechaSalid
         modelo1.setRowCount(0);
         
         
-       if (validarFechas(fechaIngreso, fechaSalida)) {
+       if (validarFechasCarga(fechaIngreso, fechaSalida)) {
         java.sql.Date fechain = new java.sql.Date(fechaINGRESO.getDate().getTime());
         java.sql.Date fechaeg = new java.sql.Date(fechaSALIDA.getDate().getTime());
         
@@ -690,6 +693,8 @@ public static boolean validarFechas(LocalDate fechaIngreso, LocalDate fechaSalid
         listarHabitacionesPorFecha ( listaHabi);
         } else {
            JOptionPane.showMessageDialog(null, "El rango de fechas no es válido.");
+           fechaINGRESO.setDate(null);
+           fechaSALIDA.setDate(null);
         }}
         } catch (Exception ex){
             JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos para realizar la búsqueda.");
@@ -720,30 +725,33 @@ public static boolean validarFechas(LocalDate fechaIngreso, LocalDate fechaSalid
     }//GEN-LAST:event_BCalcularActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        
-       if (dataH.buscarHuespedPorDni(tDniConfirmarRes.getText())!=null){
-           
-      
+      try {
+       Integer.parseInt(tDniConfirmarRes.getText());
         try {
-        
+          
+        if (dataH.buscarHuespedPorDni(tDniConfirmarRes.getText())!=null){
         LocalDate fechaIngreso = fechaINGRESO.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate fechaSalida = fechaSALIDA.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int filaSelec = Tabla.getSelectedRow();
+        
         int cantPer= (Integer)cantidadPersonas.getValue();
         Tipo_Habitacion categoria = dataT.buscarCategoriaPorID(selec.getIdCategoria());
         double montoTotal = dataR.calcularMonto(fechaIngreso, fechaSalida, categoria.getPrecio());
-        if (filaSelec != -1){
+        if (filaSelec!=-1) {
         Huesped huesped = dataH.buscarHuespedPorDni(tDniConfirmarRes.getText());
         Reserva_huesped reserva = new Reserva_huesped (huesped.getIdHuesped(), selec.getIdHabitacion(), cantPer , fechaIngreso, fechaSalida, montoTotal, true);
         dataR.crearReserva(reserva);
+        tNombreHuesped.setText(huesped.getNombre()+ " "+huesped.getApellido());
+        } 
         }
         
        } catch (Exception ex ) {
-           JOptionPane.showMessageDialog(null, "Err" + ex);
+            JOptionPane.showMessageDialog(null, "Para registrar una reserva, primero debe buscar una habitacion libre en el rango de fechas solicitado por el cliente." );
        }
-       } else {
-            JOptionPane.showMessageDialog(null, "El huésped no existe, diríjase a la sección de Huésped y cárguelo.");
-       }
+      }catch (Exception ex ) {
+            JOptionPane.showMessageDialog(null, "El campo DNI solo acepta números");
+      }
+       
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -759,7 +767,8 @@ public static boolean validarFechas(LocalDate fechaIngreso, LocalDate fechaSalid
            }
            
          } catch (Exception ex) {
-             JOptionPane.showMessageDialog(null, "Err");
+             JOptionPane.showMessageDialog(null, "El campo solo acepta números");
+             tDniConfirmarRes.setText("");
          }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -929,6 +938,20 @@ private void armarCabeceraTabla2() {
             String nombre= huesped.getNombre()+huesped.getApellido();
             modelo2.addRow(new Object[] { m.getIdReserva(), nombre, m.getIdHabitacion(), m.getCantidadPersonas(), m.getCheckIn(), m.getCheckOut(), m.getMonto(), estado });
         }
+    }
+
+    private boolean validarFechasCarga(LocalDate fechaIngreso, LocalDate fechaSalida) {
+        LocalDate fechaHoy = LocalDate.now();
+       
+        if (fechaSalida.isBefore(fechaHoy) || fechaIngreso.isBefore(fechaHoy)|| fechaSalida.isEqual(fechaHoy) || fechaIngreso.isEqual(fechaHoy)){
+            return false;
+        } else {
+            return true;
+        }
+        
+        
+        
+        
     }
     
     }
