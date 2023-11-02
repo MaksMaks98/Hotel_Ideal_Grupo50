@@ -90,7 +90,7 @@ public class ReservaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Reserva: " + ex.getMessage());
         }
         }
-        
+              
         public List<Reserva_huesped> buscarReservaPorIdHuesped(int idHuesped) { 
             
 	List<Reserva_huesped> reservas = new ArrayList<>();
@@ -205,6 +205,78 @@ public class ReservaData {
          return reservas;
         
         
+    }
+         
+         
+         public List<Reserva_huesped> listarTodasR() {
+       
+        List<Reserva_huesped> reservas = new ArrayList<>();
+        String sql ="SELECT * FROM reserva";
+            PreparedStatement ps = null;
+        try {
+           ps = con.prepareStatement(sql);
+	   ResultSet rs = ps.executeQuery(); 
+        
+	while (rs.next()) {
+           
+	Reserva_huesped reserva=new Reserva_huesped();
+	reserva.setIdReserva(rs.getInt("idReserva"));
+	reserva.setIdHuesped(rs.getInt("idHuesped"));
+	reserva.setIdHabitacion(rs.getInt("idHabitacion"));
+	reserva.setCantidadPersonas(rs.getInt("cantidadPersona"));
+	reserva.setCheckIn(rs.getDate("fechaIngreso").toLocalDate());
+	reserva.setCheckOut(rs.getDate("fechaSalida").toLocalDate());
+	reserva.setMonto(rs.getDouble("monto"));
+	reserva.setEstado(rs.getBoolean("estado"));
+	reservas.add(reserva);
+        }    
+        ps.close();
+        
+        } catch (SQLException ex) {
+	JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Reserva "+ex.getMessage());	
+        
+        
+    }
+         return reservas;
+        
+        
+    }
+         
+      public void actualizarReservasVencidas(List<Reserva_huesped> reservas) {
+        LocalDate fechaActual = LocalDate.now();
+
+        for (Reserva_huesped reserva : reservas) {
+            int nuevoEstado = reserva.getCheckOut().isBefore(fechaActual) ? 0 : 1;
+            try {
+                // Actualizar el estado de la reserva
+                String updateReservaSQL = "UPDATE reserva SET estado = ? WHERE idReserva = ?";
+                PreparedStatement psReserva = con.prepareStatement(updateReservaSQL);
+                psReserva.setInt(1, nuevoEstado);
+                psReserva.setInt(2, reserva.getIdReserva());
+                psReserva.executeUpdate();
+                psReserva.close();
+
+                // Actualizar el estado del huésped
+                String updateHuespedSQL = "UPDATE huesped SET estado = ? WHERE idHuesped = ?";
+                PreparedStatement psHuesped = con.prepareStatement(updateHuespedSQL);
+                psHuesped.setInt(1, nuevoEstado);
+                psHuesped.setInt(2, reserva.getIdHuesped());
+                psHuesped.executeUpdate();
+                psHuesped.close();
+
+                // Actualizar el estado de la habitación asociada a la reserva
+                String updateHabitacionSQL = "UPDATE habitacion SET estado = ? WHERE idHabitacion = ?";
+                PreparedStatement psHabitacion = con.prepareStatement(updateHabitacionSQL);
+                psHabitacion.setInt(1, nuevoEstado);
+                psHabitacion.setInt(2, reserva.getIdHabitacion());
+                psHabitacion.executeUpdate();
+                psHabitacion.close();
+                
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al actualizar reservas: " + ex.getMessage());
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Lista actualizada. ");
     }
             
         

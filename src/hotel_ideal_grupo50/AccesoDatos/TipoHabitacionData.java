@@ -89,9 +89,33 @@ public class TipoHabitacionData {
             
         }
 
+        public List<Tipo_Habitacion> listarCategorias() {
+    List<Tipo_Habitacion> categorias = new ArrayList<>();
+    try {
+        String sql = "SELECT * FROM categoria";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
 
+        while (rs.next()) {
+           Tipo_Habitacion categoria=new Tipo_Habitacion();
+           categoria.setIdTipo(rs.getInt("idCategoria"));
+           categoria.setCategoria(rs.getString("nomCategoria"));
+           categoria.setCantidadCamas(rs.getInt("cantidadCamas"));
+           categoria.setCantidadPersonas(rs.getInt("cantPersonas"));
+           categoria.setTipoCamas(rs.getString("tipoCama"));
+           categoria.setPrecio(rs.getDouble("precio"));
+            categorias.add(categoria);
+        }
+
+        ps.close();
+        return categorias;
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error, no se pudo acceder a la tabla Categoría");
+        return null;
+    }
+}
    
-         public ArrayList<CategoriaItem> listarCategoriasID() {
+        public ArrayList<CategoriaItem> listarCategoriasID() {
     ArrayList<CategoriaItem> categorias = new ArrayList<>();
     try {
         String sql = "SELECT idCategoria, nomCategoria FROM categoria";
@@ -112,6 +136,34 @@ public class TipoHabitacionData {
         return null;
     }
 }
+         
+         public void modificarCategoria(int idCategoria, Tipo_Habitacion categoria){
+             
+             String sql ="UPDATE categoria SET nomCategoria=?, cantidadCamas=?, cantPersonas=?, tipoCama=?, precio=? WHERE idCategoria=?";
+             
+             PreparedStatement ps = null;
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, categoria.getCategoria());
+            ps.setInt(2, categoria.getCantidadCamas());
+            ps.setInt(3, categoria.getCantidadPersonas());
+            ps.setString(4, categoria.getTipoCamas());
+            ps.setDouble(5, categoria.getPrecio());
+            
+            ps.setInt(6, idCategoria); // Establecer id en la posición correcta
+
+            int exito = ps.executeUpdate();
+
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Modificada Exitosamente.");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Categoría. " + ex.getMessage());
+        }
+             
+         }
+         
          
          public Tipo_Habitacion buscarCategoriaPorID (int idCategoria){
              Tipo_Habitacion categoria = new Tipo_Habitacion();
@@ -140,6 +192,25 @@ public class TipoHabitacionData {
              
          }
 
-        
+        public void borrarReserva(int idCategoria) {
+
+        try {
+            String sql = "DELETE FROM categoria WHERE idCategoria = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idCategoria);
+
+            int rowsDeleted = ps.executeUpdate();
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(null, "Categoría eliminada exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la categoría con ID: " + idCategoria);
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar la categoría, no se puede eliminar una Categoría que esté asociada a una habitación ");
+        }
+
+    }
         
 }
